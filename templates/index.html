@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body, html {
+    margin:0;
+    height:100%;
+}
+
+.bg {
+    background: url("{{ url_for('static', filename='img.jpg') }}") no-repeat center/cover;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+}
+
+h1 {
+    font-size:40px;
+}
+
+button {
+padding:15px 30px;
+font-size:18px;
+background:blue;
+color:white;
+border:none;
+}
+</style>
+</head>
+
+<body>
+<div class="bg">
+    <h1>🎓 Student Performance Predictor</h1>
+    <a href="/predict">
+        <button>Start Prediction</button>
+    </a>
+</div>
+</body>
+</html>

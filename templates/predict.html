@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #f2f2f2;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    width: 420px;
+    margin: 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+}
+
+input, select {
+    width: 85%;
+    padding: 8px;
+    margin: 8px;
+}
+
+button {
+    padding: 10px 20px;
+    background: blue;
+    color: white;
+    border: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>📊 Student Performance Prediction</h2>
+
+<form method="POST">
+
+<input name="name" placeholder="Name" required><br>
+<input name="usn" placeholder="USN" required><br>
+
+<select name="branch">
+<option>AIML</option>
+<option>CSE</option>
+<option>Mechanical</option>
+<option>Electronics</option>
+<option>IT</option>
+</select><br>
+
+<h4>Previous</h4>
+<input name="prev_cgpa" placeholder="Previous CGPA" required><br>
+<input name="prev_sgpa" placeholder="Previous SGPA" required><br>
+
+<h4>Current</h4>
+<input name="curr_cgpa" placeholder="Current CGPA" required><br>
+<input name="curr_sgpa" placeholder="Current SGPA" required><br>
+
+<h4>Other</h4>
+<input name="study_hours" placeholder="Study Hours" required><br>
+<input name="attendance" placeholder="Attendance %" required><br>
+<input name="project" placeholder="Project Marks" required><br>
+
+<h4>Scores</h4>
+<input name="reading" placeholder="Reading Score" required><br>
+<input name="writing" placeholder="Writing Score" required><br>
+
+<button type="submit">Predict</button>
+
+</form>
+
+{% if prediction %}
+<hr>
+
+<h3>👤 {{ name }} ({{ usn }})</h3>
+<h4>🎓 {{ branch }}</h4>
+
+<h3>🎯 {{ prediction }}</h3>
+<h4>📊 Score: {{ score }}</h4>
+
+<img src="data:image/png;base64,{{ graph_url }}">
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
