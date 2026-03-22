@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Predictor</title>
+<style>
+body {
+    font-family: Arial;
+    background: url("/static/img.jpg") no-repeat center center/cover;
+    color: white;
+    text-align: center;
+}
+form {
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    margin: 30px auto;
+    width: 400px;
+    border-radius: 10px;
+}
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+}
+button {
+    padding: 10px;
+    background: linear-gradient(45deg,#00c6ff,#0072ff);
+    color: white;
+    border: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Student Performance Predictor</h1>
+
+<form action="/predict" method="POST">
+
+<input type="text" name="name" placeholder="Name" required>
+<input type="text" name="usn" placeholder="USN" required>
+<input type="text" name="branch" placeholder="Branch" required>
+
+<input type="number" step="0.01" name="prev_cgpa" placeholder="Previous CGPA" required>
+<input type="number" step="0.01" name="prev_sgpa" placeholder="Previous SGPA" required>
+<input type="number" step="0.01" name="curr_cgpa" placeholder="Current CGPA" required>
+<input type="number" step="0.01" name="curr_sgpa" placeholder="Current SGPA" required>
+
+<input type="number" name="attendance" placeholder="Attendance (%)" required>
+<input type="number" name="project" placeholder="Project Marks" required>
+
+<button type="submit">Predict</button>
+
+</form>
+
+<h2>{{ prediction_text }}</h2>
+
+{% if graph %}
+<img src="{{ url_for('static', filename=graph) }}" width="300">
+{% endif %}
+
+<br><br>
+
+<a href="/students"><button>View All Students</button></a>
+
+</body>
+</html>

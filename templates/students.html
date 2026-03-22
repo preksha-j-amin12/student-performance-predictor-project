@@ -1,0 +1,20 @@
+<h2>Saved Students</h2>
+
+<table border="1">
+<tr>
+<th>Name</th>
+<th>USN</th>
+<th>Branch</th>
+<th>Score</th>
+</tr>
+
+{% for row in tables %}
+<tr>
+<td>{{ row.name }}</td>
+<td>{{ row.usn }}</td>
+<td>{{ row.branch }}</td>
+<td>{{ row.score }}</td>
+</tr>
+{% endfor %}
+
+</table>
