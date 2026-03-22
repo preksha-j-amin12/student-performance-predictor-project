@@ -1,42 +1,158 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+/* Full-screen background */
 body, html {
-    margin:0;
-    height:100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: url("{{ url_for('static', filename='img.jpg') }}") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
+/* Centered heading and button */
 .bg {
-    background: url("{{ url_for('static', filename='img.jpg') }}") no-repeat center/cover;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    color:white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 20px;
+    border-radius: 10px;
 }
 
+/* Heading */
 h1 {
-    font-size:40px;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
 }
 
+/* Button */
 button {
-padding:15px 30px;
-font-size:18px;
-background:blue;
-color:white;
-border:none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
 }
+button:hover { background: #0c4da2; }
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover { color: black; }
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+}
+input[type="submit"] {
+    background: #1a73e8;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+input[type="submit"]:hover { background: #0c4da2; }
 </style>
 </head>
 
 <body>
 <div class="bg">
     <h1>🎓 Student Performance Predictor</h1>
-    <a href="/predict">
-        <button>Start Prediction</button>
-    </a>
+    <button id="openModalBtn">Start Prediction</button>
 </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+<div class="modal-content">
+    <span class="close">&times;</span>
+    <form method="POST" action="/predict">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>USN:</label>
+        <input type="text" name="usn" required>
+
+        <label>Branch:</label>
+        <input type="text" name="branch" required>
+
+        <label>Previous CGPA:</label>
+        <input type="number" step="0.01" name="prev_cgpa" required>
+
+        <label>Previous SGPA:</label>
+        <input type="number" step="0.01" name="prev_sgpa" required>
+
+        <label>Current CGPA:</label>
+        <input type="number" step="0.01" name="curr_cgpa" required>
+
+        <label>Current SGPA:</label>
+        <input type="number" step="0.01" name="curr_sgpa" required>
+
+        <label>Study Hours:</label>
+        <input type="number" step="0.1" name="study_hours" required>
+
+        <label>Attendance (%):</label>
+        <input type="number" step="0.1" name="attendance" required>
+
+        <label>Project Score:</label>
+        <input type="number" step="0.1" name="project" required>
+
+        <label>Reading Score:</label>
+        <input type="number" step="0.1" name="reading" required>
+
+        <label>Writing Score:</label>
+        <input type="number" step="0.1" name="writing" required>
+
+        <input type="submit" value="Predict">
+    </form>
+</div>
+</div>
+
+<script>
+// Open modal
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("openModalBtn");
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() { modal.style.display = "flex"; }
+span.onclick = function() { modal.style.display = "none"; }
+window.onclick = function(event) { if (event.target == modal) { modal.style.display = "none"; } }
+</script>
 </body>
 </html>
